@@ -19,9 +19,9 @@ jobs:
 
     - name: Run Flyway migrations
       run: |
-        export FLYWAY_URL="jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
-        export FLYWAY_USER=${DB_USER}
-        export FLYWAY_PASSWORD=${DB_PASSWORD}
+        export FLYWAY_URL="jdbc:postgresql://${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}"
+        export FLYWAY_USER=${{ secrets.DB_USER }}
+        export FLYWAY_PASSWORD=${{ secrets.DB_PASSWORD }}
         flyway migrate -locations=filesystem:migrations
 
     ### Этот шаг оставьте без изменений
