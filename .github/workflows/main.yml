@@ -18,11 +18,11 @@ jobs:
         sudo ln -s `pwd`/flyway-11.1.0/flyway /usr/local/bin/flyway
 
     - name: Run Flyway migrations
-      env: # переместить в секреты
-        FLYWAY_URL: "jdbc:postgresql://localhost:5432/store"
-        FLYWAY_USER: store_user
-        FLYWAY_PASSWORD: store_user_password
-      run: flyway migrate -locations=filesystem:migrations
+      run: |
+        export FLYWAY_URL="jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
+        export FLYWAY_USER=${DB_USER}
+        export FLYWAY_PASSWORD=${DB_PASSWORD}
+        flyway migrate -locations=filesystem:migrations
 
     ### Этот шаг оставьте без изменений
     - name: Download and setup autotests binaries
